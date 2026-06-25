@@ -23,10 +23,9 @@ static const Preset PRESETS[] = {
 static constexpr int NUM_PRESETS = 6;
 
 SettingsDialog::SettingsDialog()
-    : Fl_Window(340, 240, "\xe8\xae\xa1\xe6\x97\xb6\xe8\xae\xbe\xe7\xbd\xae")
+    : Fl_Window(340, 240, "Settings")
 {
-    auto* lbl_preset = new Fl_Box(10, 10, 80, 25,
-        "\xe5\xbf\xab\xe9\x80\x9f\xe9\xa2\x84\xe8\xae\xbe\xef\xbc\x9a");
+    auto* lbl_preset = new Fl_Box(10, 10, 80, 25, "Presets:");
     lbl_preset->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
 
     int bx = 10;
@@ -40,44 +39,36 @@ SettingsDialog::SettingsDialog()
         bx += 54;
     }
 
-    auto* lbl_mode = new Fl_Box(10, 80, 60, 25,
-        "\xe6\xa8\xa1\xe5\xbc\x8f\xef\xbc\x9a");
+    auto* lbl_mode = new Fl_Box(10, 80, 60, 25, "Mode:");
     lbl_mode->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
     choice_mode_ = new Fl_Choice(75, 80, 180, 25);
-    choice_mode_->add("\xe7\xbb\x9d\xe5\xaf\xb9\xe9\x99\x90\xe6\x97\xb6");
-    choice_mode_->add("\xe5\x8a\xa0\xe7\xa7\x92\xe5\x88\xb6(Fischer)");
-    choice_mode_->add("\xe5\xbb\xb6\xe8\xbf\x9f\xe5\x88\xb6(Bronstein)");
+    choice_mode_->add("Sudden Death");
+    choice_mode_->add("Fischer");
+    choice_mode_->add("Bronstein");
     choice_mode_->value(0);
 
-    auto* lbl_time = new Fl_Box(10, 118, 60, 25,
-        "\xe6\x97\xb6\xe9\x97\xb4\xef\xbc\x9a");
+    auto* lbl_time = new Fl_Box(10, 118, 60, 25, "Time:");
     lbl_time->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
     input_min_ = new Fl_Int_Input(75, 118, 55, 25);
-    auto* lbl_min = new Fl_Box(132, 118, 25, 25,
-        "\xe5\x88\x86");
+    auto* lbl_min = new Fl_Box(132, 118, 30, 25, "min");
     lbl_min->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
-    input_sec_ = new Fl_Int_Input(160, 118, 55, 25);
-    auto* lbl_sec = new Fl_Box(217, 118, 25, 25,
-        "\xe7\xa7\x92");
+    input_sec_ = new Fl_Int_Input(168, 118, 55, 25);
+    auto* lbl_sec = new Fl_Box(225, 118, 30, 25, "sec");
     lbl_sec->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
 
-    auto* lbl_incr = new Fl_Box(10, 153, 60, 25,
-        "\xe5\xa2\x9e\xe9\x87\x8f\xef\xbc\x9a");
+    auto* lbl_incr = new Fl_Box(10, 153, 60, 25, "Incr:");
     lbl_incr->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
     input_incr_ = new Fl_Int_Input(75, 153, 55, 25);
-    auto* lbl_is = new Fl_Box(132, 153, 25, 25,
-        "\xe7\xa7\x92");
+    auto* lbl_is = new Fl_Box(132, 153, 30, 25, "sec");
     lbl_is->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
 
-    auto* btn_ok = new Fl_Button(80, 195, 80, 32,
-        "\xe7\xa1\xae\xe5\xae\x9a");
+    auto* btn_ok = new Fl_Button(80, 195, 80, 32, "OK");
     btn_ok->callback(on_ok, this);
     btn_ok->box(FL_FLAT_BOX);
     btn_ok->color(fl_rgb_color(0, 120, 60));
     btn_ok->labelcolor(FL_WHITE);
 
-    auto* btn_cancel = new Fl_Button(180, 195, 80, 32,
-        "\xe5\x8f\x96\xe6\xb6\x88");
+    auto* btn_cancel = new Fl_Button(180, 195, 80, 32, "Cancel");
     btn_cancel->callback(on_cancel, this);
     btn_cancel->box(FL_FLAT_BOX);
     btn_cancel->color(fl_rgb_color(100, 100, 100));

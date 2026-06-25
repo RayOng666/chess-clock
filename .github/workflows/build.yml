@@ -12,10 +12,19 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Configure CMake
-        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release 2>&1 | Tee-Object -FilePath configure.log
 
       - name: Build
-        run: cmake --build build --config Release -- /m
+        run: cmake --build build --config Release 2>&1 | Tee-Object -FilePath build.log
+
+      - name: Upload build log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: |
+            configure.log
+            build.log
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
