@@ -1,0 +1,4 @@
+build/
+*.conf
+.vs/
+CMakeUserPresets.json
