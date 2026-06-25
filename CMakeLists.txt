@@ -1,4 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
+cmake_policy(SET CMP0091 NEW)
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
 project(chess_clock LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -24,15 +27,8 @@ add_executable(chess_clock WIN32
 target_link_libraries(chess_clock PRIVATE fltk)
 target_include_directories(chess_clock PRIVATE src)
 
-if(WIN32)
-    target_link_libraries(chess_clock PRIVATE gdi32 user32 ole32 comctl32 shell32)
-endif()
-
 if(MSVC)
     target_compile_options(chess_clock PRIVATE /utf-8)
-    set_target_properties(chess_clock PROPERTIES
-        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
-    )
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
