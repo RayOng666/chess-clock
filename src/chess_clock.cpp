@@ -76,8 +76,6 @@ ChessClock::ChessClock(const AppConfig& cfg)
 
 // ── drawing ─────────────────────────────────────────────
 void ChessClock::draw() {
-    Fl_Double_Window::draw();
-
     int hw = W / 2, th = H - CTRL_H;
 
     for (int i = 0; i < 2; i++) {
@@ -91,7 +89,6 @@ void ChessClock::draw() {
             bg = bg_inactive();
         fl_rectf(px, 0, hw, th, bg);
 
-        // player label
         const char* name = i == 0
             ? "\xe7\x99\xbd\xe6\x96\xb9"   // 白方
             : "\xe9\xbb\x91\xe6\x96\xb9";  // 黑方
@@ -101,7 +98,6 @@ void ChessClock::draw() {
         fl_measure(name, lw, lh);
         fl_draw(name, px + (hw - lw) / 2, 45);
 
-        // active indicator dot
         int cx = px + hw / 2, cy = 62;
         if (state_ == ClockState::RUNNING && current_player_ == i) {
             fl_color(FL_WHITE);
@@ -111,7 +107,6 @@ void ChessClock::draw() {
             fl_arc(cx - 5, cy, 10, 10, 0, 360);
         }
 
-        // time string
         std::string ts = timers_[i].format_time();
         Fl_Color tc = FL_WHITE;
         if (!timers_[i].is_timed_out() && timers_[i].remaining_ms() < 10000)
@@ -126,6 +121,8 @@ void ChessClock::draw() {
     fl_color(fl_rgb_color(80, 80, 80));
     fl_line(hw, 0, hw, th);
     fl_rectf(0, th, W, CTRL_H, ctrl_bg());
+
+    draw_children();
 }
 
 // ── event handling ──────────────────────────────────────

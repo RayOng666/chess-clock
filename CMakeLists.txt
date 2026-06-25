@@ -7,17 +7,12 @@ include(FetchContent)
 FetchContent_Declare(
     fltk
     GIT_REPOSITORY https://github.com/fltk/fltk.git
-    GIT_TAG release-1.4.2
+    GIT_TAG release-1.4.5
     GIT_SHALLOW TRUE
 )
 set(FLTK_BUILD_TEST OFF CACHE BOOL "" FORCE)
-set(FLTK_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(FLTK_BUILD_FLUID OFF CACHE BOOL "" FORCE)
-set(FLTK_BUILD_FLTK_OPTIONS OFF CACHE BOOL "" FORCE)
-set(FLTK_USE_SYSTEM_ZLIB OFF CACHE BOOL "" FORCE)
-set(FLTK_USE_SYSTEM_LIBJPEG OFF CACHE BOOL "" FORCE)
-set(FLTK_USE_SYSTEM_LIBPNG OFF CACHE BOOL "" FORCE)
-set(OPTION_BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(fltk)
 
 add_executable(chess_clock WIN32
@@ -26,8 +21,12 @@ add_executable(chess_clock WIN32
     src/prefs.cpp
     src/settings_dialog.cpp
 )
-target_link_libraries(chess_clock PRIVATE fltk::fltk)
+target_link_libraries(chess_clock PRIVATE fltk)
 target_include_directories(chess_clock PRIVATE src)
+
+if(WIN32)
+    target_link_libraries(chess_clock PRIVATE gdi32 user32 ole32 comctl32 shell32)
+endif()
 
 if(MSVC)
     target_compile_options(chess_clock PRIVATE /utf-8)
