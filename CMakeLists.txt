@@ -1,7 +1,4 @@
 cmake_minimum_required(VERSION 3.20)
-cmake_policy(SET CMP0091 NEW)
-set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-
 project(chess_clock LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -29,12 +26,4 @@ target_include_directories(chess_clock PRIVATE src)
 
 if(MSVC)
     target_compile_options(chess_clock PRIVATE /utf-8)
-endif()
-
-if(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
-    if(MSVC)
-        target_link_options(chess_clock PRIVATE /OPT:REF /OPT:ICF)
-    else()
-        target_link_options(chess_clock PRIVATE -s)
-    endif()
 endif()
